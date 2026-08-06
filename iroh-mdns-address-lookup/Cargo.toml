@@ -30,8 +30,8 @@ futures-util = "0.3"
 # below stops satisfying the trait the forked Endpoint hands back (E0308). The
 # only other way to reconcile that is a [patch.crates-io] in every consumer's
 # workspace root, restated by hand and silently wrong when one drifts.
-iroh = { version = "1.0.0", git = "https://github.com/fofoca-network/iroh", rev = "a1c166834f5c16fd266089bb8516a5a577b48c74" }
-iroh-base = { version = "1.0.0", git = "https://github.com/fofoca-network/iroh", rev = "a1c166834f5c16fd266089bb8516a5a577b48c74", default-features = false, features = ["key"] }
+iroh = { version = "=1.0.3", git = "https://github.com/fofoca-network/iroh", rev = "b7e07872a6d28a9b7971ecfaca8db69c4bddd2de" }
+iroh-base = { version = "=1.0.3", git = "https://github.com/fofoca-network/iroh", rev = "b7e07872a6d28a9b7971ecfaca8db69c4bddd2de", default-features = false, features = ["key"] }
 n0-error = "1.0.0"
 n0-future = "0.3.2"
 n0-watcher = "1"

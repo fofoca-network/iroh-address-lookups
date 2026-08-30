@@ -35,7 +35,11 @@ iroh-base = { version = "=1.0.3", git = "https://github.com/fofoca-network/iroh"
 n0-error = "1.0.0"
 n0-future = "0.3.2"
 n0-watcher = "1"
-swarm-discovery = "0.6"
+# PIN: rkuhn/swarm-discovery at a git rev, not crates.io. 0.6.3 spins a 10 ms
+# retry loop in updater.rs gc() once the mDNS updater actor is gone
+# (rkuhn/swarm-discovery#28). Fixed in PR #27 on 2026-07-13, unreleased.
+# Return to a crates.io version at 0.6.4+.
+swarm-discovery = { version = "=0.6.3", git = "https://github.com/rkuhn/swarm-discovery", rev = "b41dbcc431f419ad0cd91f786d4d7c71ec6be9ce" }
 tokio = { version = "1.49", features = ["rt", "sync"] }
 tokio-stream = { version = "0.1.15", features = ["sync"] }
 tracing = "0.1.44"

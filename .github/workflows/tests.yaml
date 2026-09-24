@@ -48,6 +48,9 @@ jobs:
             release-os: darwin
             release-arch: aarch64
             runner: macos-latest
+            # GitHub-hosted macOS runners cannot send multicast ("No route to
+            # host"), so these mdns tests can only time out there.
+            test-filter: "-E 'not test(/::run_in_isolation::(mdns_publish_expire|mdns_publish_relay_url|mdns_publish_resolve|mdns_subscribe|non_advertising_endpoint_not_discovered)$/)'"
     env:
       RUSTC_WRAPPER: "sccache"
       SCCACHE_GHA_ENABLED: "on"
@@ -116,7 +119,7 @@ jobs:
     - name: run tests
       run: |
         mkdir -p output
-        cargo nextest run --workspace ${{ env.FEATURES }} --lib --bins --tests --profile ci --run-ignored ${{ inputs.flaky && 'all' || 'default' }} --no-fail-fast --message-format ${{ inputs.flaky && 'libtest-json' || 'human' }} > output/${{ matrix.name }}_${{ matrix.features }}_${{ matrix.rust }}.json
+        cargo nextest run --workspace ${{ env.FEATURES }} --lib --bins --tests ${{ matrix.test-filter }} --profile ci --run-ignored ${{ inputs.flaky && 'all' || 'default' }} --no-fail-fast --message-format ${{ inputs.flaky && 'libtest-json' || 'human' }} > output/${{ matrix.name }}_${{ matrix.features }}_${{ matrix.rust }}.json
       env:
         RUST_LOG: ${{ runner.debug && 'TRACE' || 'DEBUG'}}
         NEXTEST_EXPERIMENTAL_LIBTEST_JSON: 1

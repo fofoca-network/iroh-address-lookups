@@ -22,18 +22,30 @@ workspace = true
 data-encoding = "2.10"
 derive_more = { version = "2.1", features = ["debug"] }
 futures-util = "0.3"
-iroh = { version = "1.0.0", default-features = false }
-iroh-base = { version = "1.0.0", default-features = false, features = ["key"] }
+# FORK: fofoca-network/iroh, not crates.io. See the repo README -- this fork
+# exists only to repoint these two lines, and carries no functional change.
+#
+# This crate sits between fofoca and iroh, and it named iroh from crates.io
+# while fofoca names a fork. Two irohs in one graph, and the AddressLookup impl
+# below stops satisfying the trait the forked Endpoint hands back (E0308). The
+# only other way to reconcile that is a [patch.crates-io] in every consumer's
+# workspace root, restated by hand and silently wrong when one drifts.
+iroh = { version = "=1.0.3", git = "https://github.com/fofoca-network/iroh", rev = "aef12f2ad0c07dac57c5fa7f196d53921d61d485", default-features = false }
+iroh-base = { version = "=1.0.3", git = "https://github.com/fofoca-network/iroh", rev = "aef12f2ad0c07dac57c5fa7f196d53921d61d485", default-features = false, features = ["key"] }
 n0-error = "1.0.0"
 n0-future = "0.3.2"
 n0-watcher = "1"
-swarm-discovery = "0.6"
+# PIN: rkuhn/swarm-discovery at a git rev, not crates.io. 0.6.3 spins a 10 ms
+# retry loop in updater.rs gc() once the mDNS updater actor is gone
+# (rkuhn/swarm-discovery#28). Fixed in PR #27 on 2026-07-13, unreleased.
+# Return to a crates.io version at 0.6.4+.
+swarm-discovery = { version = "=0.6.3", git = "https://github.com/rkuhn/swarm-discovery", rev = "b41dbcc431f419ad0cd91f786d4d7c71ec6be9ce" }
 tokio = { version = "1.49", features = ["rt", "sync"] }
 tokio-stream = { version = "0.1.15", features = ["sync"] }
 tracing = "0.1.44"
 
 [dev-dependencies]
-iroh = { version = "1.0.0" }
+iroh = { version = "=1.0.3", git = "https://github.com/fofoca-network/iroh", rev = "aef12f2ad0c07dac57c5fa7f196d53921d61d485" }
 n0-tracing-test = "0.3"
 rand = "0.10"
 rand_chacha = "0.10"

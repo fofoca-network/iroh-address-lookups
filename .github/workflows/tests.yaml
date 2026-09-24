@@ -50,7 +50,7 @@ jobs:
             runner: macos-latest
             # GitHub-hosted macOS runners cannot send multicast ("No route to
             # host"), so these mdns tests can only time out there.
-            test-filter: "-E 'not test(/::run_in_isolation::(mdns_publish_expire|mdns_publish_relay_url|mdns_publish_resolve|mdns_subscribe|non_advertising_endpoint_not_discovered)$/)'"
+            test-filter: "-E 'not test(/::run_in_isolation::(mdns_publish_expire|mdns_publish_relay_url|mdns_publish_resolve|mdns_subscribe|non_advertising_endpoint_not_discovered|test_service_names)$/)'"
     env:
       RUSTC_WRAPPER: "sccache"
       SCCACHE_GHA_ENABLED: "on"

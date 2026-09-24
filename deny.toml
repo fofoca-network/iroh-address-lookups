@@ -29,3 +29,10 @@ ignore = [
     "RUSTSEC-2026-0194", # netwatch -> netdev -> plist -> quick-xml: remove once https://github.com/ebarnard/rust-plist/pull/191 is released
     "RUSTSEC-2026-0195", # netwatch -> netdev -> plist -> quick-xml: remove once https://github.com/ebarnard/rust-plist/pull/191 is released
 ]
+
+[sources]
+allow-git = [
+    "https://github.com/fofoca-network/iroh",
+    "https://github.com/fofoca-network/net-tools",
+    "https://github.com/rkuhn/swarm-discovery",
+]
